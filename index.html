@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio – Arquitectura de Computadoras | ITS Saltillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#6B1229; --gd:#4a0c1c; --gl:#8c1a35; --gp:#f5e8eb;
+  --w:#fff; --f8:#f8f8f8; --gray:#666; --text:#1a1a1a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--w)}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;background:var(--gd);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px}
+.nav-logo{font-family:'Playfair Display',serif;color:var(--w);font-size:.95rem;font-weight:700;letter-spacing:.05em}
+.nav-links{display:flex;gap:1.25rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.8rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--w)}
+
+/* HERO */
+.hero{background:var(--g);min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:4rem 2rem 3rem;
+  position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 50%,rgba(255,255,255,.04) 0%,transparent 50%),
+             radial-gradient(circle at 80% 30%,rgba(255,255,255,.03) 0%,transparent 40%)}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);
+  font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  padding:.4rem 1rem;border-radius:2px;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;color:var(--w);
+  font-size:clamp(2.5rem,6vw,5rem);line-height:1.1;margin-bottom:.5rem}
+.hero h1 span{color:rgba(255,255,255,.6);font-style:italic}
+.hero-sub{color:rgba(255,255,255,.75);font-size:1.05rem;margin-bottom:2rem;font-weight:300}
+.hero-author{font-family:'Playfair Display',serif;color:rgba(255,255,255,.9);font-size:1.4rem;margin-bottom:.25rem}
+.hero-detail{color:rgba(255,255,255,.5);font-size:.88rem;letter-spacing:.05em}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.35);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.scroll-hint::after{content:'';display:block;width:1px;height:36px;
+  background:rgba(255,255,255,.25);animation:sl 1.6s ease-in-out infinite}
+@keyframes sl{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* SECTION */
+section{padding:5rem 2rem}
+.container{max-width:940px;margin:0 auto}
+.section-label{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--g);margin-bottom:.4rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);
+  color:var(--gd);line-height:1.2;margin-bottom:2.5rem}
+.divider{width:44px;height:3px;background:var(--g);margin:.75rem 0 2rem}
+
+/* TEMARIO */
+.temario-wrap{display:grid;gap:1.25rem}
+.uni-block{background:var(--w);border:1px solid #e5e5e5;border-left:4px solid var(--g);border-radius:3px}
+.uni-header{background:var(--g);padding:1rem 1.5rem;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;user-select:none}
+.uni-header h3{font-family:'Playfair Display',serif;color:var(--w);font-size:1.1rem}
+.uni-toggle{color:rgba(255,255,255,.7);font-size:1.2rem;transition:transform .25s}
+.uni-toggle.open{transform:rotate(180deg)}
+.uni-body{padding:1.25rem 1.5rem;display:none}
+.uni-body.open{display:block}
+.tema-list{list-style:none;font-size:.9rem}
+.tema-list li{padding:.25rem 0;border-bottom:1px solid #f0f0f0;color:#444;line-height:1.5}
+.tema-list li:last-child{border-bottom:none}
+.tema-list li.sub1{padding-left:1rem;color:#555}
+.tema-list li.sub2{padding-left:2rem;color:#666;font-size:.85rem}
+
+/* CARD BASE */
+.card{background:var(--w);border:1px solid #e5e5e5;border-left:4px solid var(--g);
+  border-radius:4px;margin-bottom:2.5rem;overflow:hidden}
+.card-header{background:var(--g);padding:1.25rem 1.75rem;
+  display:flex;align-items:center;gap:1rem}
+.card-num{font-family:'Playfair Display',serif;font-size:2.8rem;
+  color:rgba(255,255,255,.18);line-height:1;font-weight:900;flex-shrink:0}
+.card-header-text h3{font-family:'Playfair Display',serif;color:var(--w);font-size:1.3rem}
+.card-header-text p{color:rgba(255,255,255,.6);font-size:.82rem;margin-top:.15rem}
+.card-body{padding:1.75rem}
+
+/* SPECS */
+.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1rem 0}
+.proc-card{background:var(--f8);border:1px solid #e0e0e0;border-radius:3px;padding:1.1rem}
+.proc-card h4{font-family:'Playfair Display',serif;color:var(--g);font-size:.95rem;margin-bottom:.65rem}
+.proc-spec{font-size:.78rem;color:var(--gray);display:flex;justify-content:space-between;
+  padding:.18rem 0;border-bottom:1px solid #ebebeb}
+.proc-spec:last-child{border-bottom:none}
+.proc-spec strong{color:var(--text);font-weight:600}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:.75rem 0;overflow-x:auto;display:block}
+.data-table th{background:var(--g);color:var(--w);padding:.55rem .9rem;
+  text-align:left;font-weight:600;font-size:.75rem;letter-spacing:.04em;white-space:nowrap}
+.data-table td{padding:.55rem .9rem;border-bottom:1px solid #eee;white-space:nowrap}
+.data-table tr:last-child td{border-bottom:none;font-weight:700;background:var(--gp)}
+.data-table tr:nth-child(even):not(:last-child) td{background:#fafafa}
+
+/* SUMMARY */
+.summary{background:var(--gp);border-left:3px solid var(--g);
+  padding:1.1rem 1.4rem;border-radius:0 3px 3px 0;margin-top:1.5rem}
+.summary-title{font-weight:600;color:var(--g);font-size:.72rem;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.summary p{font-size:.9rem;line-height:1.7;color:#444;margin-bottom:0}
+
+/* GAMAS */
+.gama-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin:1rem 0}
+.gama-card{border:1px solid #e0e0e0;border-radius:3px;overflow:hidden}
+.gama-card-head{padding:.9rem 1.1rem;color:var(--w)}
+.gama-card-head.baja{background:#5a7a3a}
+.gama-card-head.media{background:#2e6b8a}
+.gama-card-head.alta{background:var(--g)}
+.gama-card-head h4{font-family:'Playfair Display',serif;font-size:1rem}
+.gama-card-head p{font-size:.75rem;opacity:.8;margin-top:.1rem}
+.gama-card-body{padding:1rem;background:var(--f8)}
+.gama-item{font-size:.8rem;padding:.22rem 0;border-bottom:1px solid #eee;color:#444;display:flex;gap:.5rem}
+.gama-item:last-child{border-bottom:none}
+.gama-label{color:var(--g);font-weight:600;min-width:85px;flex-shrink:0}
+
+/* ABOUT */
+.about-section{background:var(--gd)}
+.about-section .section-label{color:rgba(255,255,255,.45)}
+.about-section .section-title{color:var(--w)}
+.student-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  border-radius:4px;padding:2rem;display:flex;align-items:center;gap:2rem}
+.student-avatar{width:72px;height:72px;border-radius:50%;background:var(--gl);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--w);flex-shrink:0}
+.student-info h3{font-family:'Playfair Display',serif;color:var(--w);font-size:1.35rem}
+.student-info p{color:rgba(255,255,255,.6);font-size:.88rem;margin-top:.2rem}
+.social-links{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap}
+.social-link{display:inline-flex;align-items:center;gap:.35rem;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);text-decoration:none;
+  padding:.35rem .85rem;border-radius:2px;font-size:.78rem;font-weight:600;
+  letter-spacing:.05em;transition:background .2s}
+.social-link:hover{background:rgba(255,255,255,.2);color:var(--w)}
+.inst-card{margin-top:1.5rem;padding:1.4rem;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:3px}
+.inst-card p:first-child{color:rgba(255,255,255,.45);font-size:.75rem;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.inst-card .inst-name{color:var(--w);font-size:1.1rem;font-weight:600;margin-bottom:.2rem}
+.inst-card .inst-sub{color:rgba(255,255,255,.5);font-size:.88rem}
+
+footer{background:#0f0608;color:rgba(255,255,255,.35);text-align:center;
+  padding:1.75rem;font-size:.78rem;letter-spacing:.04em}
+
+/* UTIL */
+p{line-height:1.7;font-size:.93rem;margin-bottom:.65rem;color:#444}
+.tag{display:inline-block;background:var(--gp);color:var(--g);font-size:.7rem;
+  font-weight:600;letter-spacing:.07em;padding:.18rem .55rem;border-radius:2px;
+  margin:.12rem;text-transform:uppercase}
+.inline-note{font-size:.83rem;color:var(--gray);font-style:italic;margin-bottom:.9rem}
+.phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1rem 0}
+.phase-box{background:var(--f8);padding:.9rem;border-radius:3px;border:1px solid #e0e0e0}
+.phase-box p.ph-label{font-size:.75rem;font-weight:600;color:var(--g);
+  margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.05em}
+.phase-box p.ph-text{font-size:.83rem;margin-bottom:0}
+
+@media(max-width:620px){
+  .nav-links{display:none}
+  .student-card{flex-direction:column}
+  .phase-grid{grid-template-columns:1fr}
+  .gama-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">ITS Saltillo · Arq. Computadoras</span>
+  <ul class="nav-links">
+    <li><a href="#temario">Temario</a></li>
+    <li><a href="#practicas">Prácticas</a></li>
+    <li><a href="#tareas">Tareas</a></li>
+    <li><a href="#nosotros">Estudiante</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Instituto Tecnológico de Saltillo</div>
+  <h1>Arquitectura de<br><span>Computadoras</span></h1>
+  <p class="hero-sub">Portafolio de Evidencias · Semestre 2025</p>
+  <p class="hero-author">Soto Velez</p>
+  <p class="hero-detail">Aldo Alejandro Soto Velez &nbsp;·&nbsp; Ing. Sistemas Computacionales</p>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- TEMARIO -->
+<section id="temario" style="background:var(--f8)">
+  <div class="container">
+    <p class="section-label">Contenido del curso</p>
+    <h2 class="section-title">Temario</h2>
+    <div class="divider"></div>
+    <div class="temario-wrap">
+
+      <!-- U1 -->
+      <div class="uni-block">
+        <div class="uni-header" onclick="toggle(this)">
+          <h3>Unidad 1 · Arquitecturas de Cómputo</h3>
+          <span class="uni-toggle">▾</span>
+        </div>
+        <div class="uni-body">
+          <ul class="tema-list">
+            <li>1.1 Modelos de arquitecturas de cómputo</li>
+            <li class="sub1">1.1.1 Clásicas</li>
+            <li class="sub1">1.1.2 Segmentadas</li>
+            <li class="sub1">1.1.3 De multiprocesamiento</li>
+            <li>1.2 Análisis de los componentes</li>
+            <li class="sub1">1.2.1 CPU</li>
+            <li class="sub2">1.2.1.1 Arquitecturas</li>
+            <li class="sub2">1.2.1.2 Tipos</li>
+            <li class="sub2">1.2.1.3 Características</li>
+            <li class="sub2">1.2.1.4 Funcionamiento (ALU, Unidad de control, Registros y buses internos)</li>
+            <li class="sub1">1.2.2 Memoria</li>
+            <li class="sub2">1.2.2.1 Conceptos básicos del manejo de la memoria</li>
+            <li class="sub2">1.2.2.2 Memoria principal semiconductora</li>
+            <li class="sub2">1.2.2.3 Memoria caché</li>
+            <li class="sub1">1.2.3 Manejo de la entrada/salida</li>
+            <li class="sub2">1.2.3.1 Módulos de entrada/salida</li>
+            <li class="sub2">1.2.3.2 Entrada/salida programada</li>
+            <li class="sub2">1.2.3.3 Entrada/salida mediante interrupciones</li>
+            <li class="sub2">1.2.3.4 Acceso directo a memoria</li>
+            <li class="sub2">1.2.3.5 Canales y procesadores de entrada/salida</li>
+            <li class="sub1">1.2.4 Buses</li>
+            <li class="sub2">1.2.4.1 Tipos de buses</li>
+            <li class="sub2">1.2.4.2 Estructura de los buses</li>
+            <li class="sub2">1.2.4.3 Jerarquías de buses</li>
+            <li class="sub1">1.2.5 Interrupciones</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- U2 -->
+      <div class="uni-block">
+        <div class="uni-header" onclick="toggle(this)">
+          <h3>Unidad 2 · Estructura y Funcionamiento de la CPU</h3>
+          <span class="uni-toggle">▾</span>
+        </div>
+        <div class="uni-body">
+          <ul class="tema-list">
+            <li>2.1 Organización del procesador</li>
+            <li>2.2 Estructura de registros</li>
+            <li class="sub1">2.2.1 Registros visibles para el usuario</li>
+            <li class="sub1">2.2.2 Registros de control y de estados</li>
+            <li class="sub1">2.2.3 Ejemplos de organización de registros de CPU reales</li>
+            <li>2.3 El ciclo de instrucción</li>
+            <li class="sub1">2.3.1 Ciclo Fetch-Decode-Execute</li>
+            <li class="sub1">2.3.2 Segmentación de instrucciones</li>
+            <li class="sub1">2.3.3 Conjunto de instrucciones: características y funciones</li>
+            <li class="sub1">2.3.4 Modos de direccionamiento y formatos</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- U3 -->
+      <div class="uni-block">
+        <div class="uni-header" onclick="toggle(this)">
+          <h3>Unidad 3 · Selección de Componentes para Ensamble</h3>
+          <span class="uni-toggle">▾</span>
+        </div>
+        <div class="uni-body">
+          <ul class="tema-list">
+            <li>3.1 Chip Set</li>
+            <li>3.2 Aplicaciones</li>
+            <li>3.3 Ambientes de servicio</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- U4 -->
+      <div class="uni-block">
+        <div class="uni-header" onclick="toggle(this)">
+          <h3>Unidad 4 · Procesamiento Paralelo</h3>
+          <span class="uni-toggle">▾</span>
+        </div>
+        <div class="uni-body">
+          <ul class="tema-list">
+            <li>Conceptos de procesamiento paralelo</li>
+            <li>Arquitecturas paralelas</li>
+            <li>Aplicaciones del procesamiento paralelo</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRÁCTICAS -->
+<section id="practicas">
+  <div class="container">
+    <p class="section-label">Evidencias del laboratorio</p>
+    <h2 class="section-title">Prácticas Realizadas</h2>
+    <div class="divider"></div>
+
+    <!-- P1 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">01</div>
+        <div class="card-header-text">
+          <h3>Componentes Principales de una PC</h3>
+          <p>Arquitectura de Computadoras · Unidad 1</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Identificación y descripción física de los componentes internos de una computadora de escritorio.</p>
+        <div style="display:grid;gap:1.1rem">
+          <div>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.4rem">Tarjeta Madre</h4>
+            <p>Circuito principal de la computadora. Actúa como columna vertebral conectando físicamente todos los componentes: CPU, RAM, almacenamiento y periféricos.</p>
+            <span class="tag">Circuito principal</span><span class="tag">Backplane</span>
+          </div>
+          <div>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.4rem">CPU</h4>
+            <p>El "cerebro" del equipo. Procesa instrucciones, realiza cálculos matemáticos y toma decisiones lógicas. Contiene ALU, Unidad de Control y registros.</p>
+            <span class="tag">ALU</span><span class="tag">Unidad de Control</span><span class="tag">Registros</span>
+          </div>
+          <div>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.4rem">Memoria RAM</h4>
+            <p>Memoria volátil de acceso aleatorio que almacena temporalmente datos e instrucciones que el procesador necesita de forma inmediata.</p>
+            <span class="tag">Volátil</span><span class="tag">DDR</span>
+          </div>
+          <div>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.4rem">Disco Duro (HDD)</h4>
+            <p>Almacenamiento permanente para el sistema operativo, programas y archivos personales, incluso con el equipo apagado.</p>
+            <span class="tag">No volátil</span><span class="tag">SATA</span>
+          </div>
+          <div>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.4rem">SSD</h4>
+            <p>Unidad de Estado Sólido. Misma función que el HDD pero con memoria flash, sin piezas móviles: más rápida, silenciosa y resistente.</p>
+            <span class="tag">NVMe</span><span class="tag">Flash</span><span class="tag">M.2</span>
+          </div>
+        </div>
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se identificaron y describieron los componentes principales de una PC: tarjeta madre, CPU, RAM, HDD y SSD. Cada pieza fue documentada con fotografía y descripción funcional, estableciendo la base para prácticas posteriores.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">02</div>
+        <div class="card-header-text">
+          <h3>Identificación de Procesadores</h3>
+          <p>Arquitectura de Computadoras · Unidad 2</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Análisis y comparación de procesadores Intel de distintas generaciones disponibles en el laboratorio.</p>
+        <div class="proc-grid">
+          <div class="proc-card">
+            <h4>Intel Celeron SL6RM</h4>
+            <div class="proc-spec"><span>Frecuencia</span><strong>1.10 GHz</strong></div>
+            <div class="proc-spec"><span>Caché L2</span><strong>256 KB</strong></div>
+            <div class="proc-spec"><span>Bus</span><strong>100 MHz</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>PPGA370</strong></div>
+            <div class="proc-spec"><span>Transistores</span><strong>44M</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Intel Celeron D 352</h4>
+            <div class="proc-spec"><span>Modelo</span><strong>E2140</strong></div>
+            <div class="proc-spec"><span>Frecuencia</span><strong>3.2 GHz</strong></div>
+            <div class="proc-spec"><span>Caché L2</span><strong>512 KB</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>LGA775</strong></div>
+            <div class="proc-spec"><span>Transistores</span><strong>125M</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Intel Celeron D 336</h4>
+            <div class="proc-spec"><span>Modelo</span><strong>SL98W</strong></div>
+            <div class="proc-spec"><span>Frecuencia</span><strong>2.80 GHz</strong></div>
+            <div class="proc-spec"><span>Caché L2</span><strong>256 KB</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>LGA775</strong></div>
+            <div class="proc-spec"><span>Transistores</span><strong>125M</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Intel Pentium Dual-Core</h4>
+            <div class="proc-spec"><span>Modelo</span><strong>E2140</strong></div>
+            <div class="proc-spec"><span>Frecuencia</span><strong>1.60 GHz</strong></div>
+            <div class="proc-spec"><span>Caché L2</span><strong>1 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>2 físicos</strong></div>
+            <div class="proc-spec"><span>Litografía</span><strong>65 nm</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Intel Xeon S-Spec</h4>
+            <div class="proc-spec"><span>Modelo</span><strong>SL8P6</strong></div>
+            <div class="proc-spec"><span>Frecuencia</span><strong>3.00 GHz</strong></div>
+            <div class="proc-spec"><span>Caché L2</span><strong>2 MB</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>PPGA604</strong></div>
+            <div class="proc-spec"><span>Transistores</span><strong>169M</strong></div>
+          </div>
+        </div>
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se estudiaron 5 procesadores Intel de distintas épocas. Se compararon frecuencia, caché, transistores y socket, observando la evolución del hardware a lo largo del tiempo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">03</div>
+        <div class="card-header-text">
+          <h3>Intercalación de RAM</h3>
+          <p>Arquitectura de Computadoras · Unidad 1.2.2</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Ampliación de memoria RAM mediante instalación de módulos adicionales y verificación con el Administrador de tareas.</p>
+        <table class="data-table">
+          <thead><tr><th>Estado</th><th>RAM Total</th><th>Ranuras usadas</th><th>Velocidad</th><th>Uso en reposo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Antes</strong></td><td>16 GB</td><td>— de 4</td><td>2667 MHz</td><td>3.2 GB (22%)</td></tr>
+            <tr><td><strong>Después</strong></td><td>64 GB</td><td>4 de 4</td><td>2400 MHz</td><td>3.7 GB (6%)</td></tr>
+          </tbody>
+        </table>
+        <p>Se instalaron módulos de <strong>16 GB</strong> cada uno hasta completar las cuatro ranuras, alcanzando <strong>64 GB totales</strong>. El modo de canal dual distribuye las operaciones entre bancos, aumentando el ancho de banda efectivo.</p>
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se amplió la RAM de 16 GB a 64 GB. El sistema reconoció correctamente la nueva configuración, demostrando el aumento en capacidad multitarea y rendimiento del equipo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">04</div>
+        <div class="card-header-text">
+          <h3>Desarme y Armado de PC</h3>
+          <p>Arquitectura de Computadoras · Mantenimiento preventivo</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Desensamble completo de una computadora de escritorio, inspección de componentes y reensamblaje verificando funcionamiento.</p>
+        <div style="margin:.75rem 0">
+          <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin-bottom:.5rem">Componentes retirados</h4>
+          <span class="tag">Fuente de alimentación</span>
+          <span class="tag">Sistema de enfriamiento CPU</span>
+          <span class="tag">Memoria RAM</span>
+          <span class="tag">Tarjeta de red</span>
+          <span class="tag">Unidad SSD</span>
+        </div>
+        <div class="phase-grid">
+          <div class="phase-box"><p class="ph-label">Fase 1 · Desarme</p><p class="ph-text">Desconexión de periféricos, apertura del gabinete y extracción ordenada de cada componente.</p></div>
+          <div class="phase-box"><p class="ph-label">Fase 2 · Inspección</p><p class="ph-text">Revisión del estado físico de cada pieza, limpieza de polvo y verificación de conectores.</p></div>
+          <div class="phase-box"><p class="ph-label">Fase 3 · Reensamblaje</p><p class="ph-text">Reinstalación de todos los componentes verificando correcta inserción en ranuras y conectores.</p></div>
+          <div class="phase-box"><p class="ph-label">Fase 4 · Arranque</p><p class="ph-text">Conexión a periféricos básicos y verificación del arranque correcto del sistema operativo.</p></div>
+        </div>
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>El equipo inició sin errores tras el reensamblaje, confirmando que el proceso de mantenimiento se realizó correctamente sin dañar el hardware.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TAREAS -->
+<section id="tareas" style="background:var(--f8)">
+  <div class="container">
+    <p class="section-label">Trabajos del semestre</p>
+    <h2 class="section-title">Tareas</h2>
+    <div class="divider"></div>
+
+    <!-- T1: PROCESADORES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">T1</div>
+        <div class="card-header-text">
+          <h3>Procesadores Modernos</h3>
+          <p>Intel Core y AMD Ryzen · Comparativa de generaciones actuales</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Investigación y análisis de 10 procesadores Intel y 10 AMD de la línea actual de consumo.</p>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:.75rem 0 .5rem">Intel — Línea Core (12ª / 13ª Gen, LGA1700)</h4>
+        <div class="proc-grid">
+          <div class="proc-card">
+            <h4>Core i3-12100</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.3 / 4.3 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>12 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>4C / 8T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>60 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i3-13100</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.4 / 4.5 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>12 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>4C / 8T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>60 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i5-12400F</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>2.5 / 4.4 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>18 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>6C / 12T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>65 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i5-13600K</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.5 / 5.1 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>24 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>14C / 20T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>125 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i5-14600K</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.5 / 5.3 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>24 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>14C / 20T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>125 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i7-12700K</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.6 / 5.0 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>25 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>12C / 20T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>125 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i7-13700K</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.4 / 5.4 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>30 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>16C / 24T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>125 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core i9-13900K</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.0 / 5.8 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>36 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>24C / 32T</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>125 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core Ultra 7 155H</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>1.4 / 4.8 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>24 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>16C</strong></div>
+            <div class="proc-spec"><span>TDP</span><strong>28 W</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Core 9 Processor 270H</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>2.7 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>24 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>14C</strong></div>
+            <div class="proc-spec"><span>Litografía</span><strong>10 nm</strong></div>
+          </div>
+        </div>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:1.5rem 0 .5rem">AMD — Línea Ryzen (AM4 / AM5)</h4>
+        <div class="proc-grid">
+          <div class="proc-card">
+            <h4>Ryzen 3 4100</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.8 / 4.0 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>6 MB L3</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>4C / 8T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM4</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 5 4600G</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.7 / 4.2 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>11 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>6C / 12T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM4</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 5 5600X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.7 / 4.6 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>35 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>6C / 12T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM4</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 5 7600</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.8 / 5.1 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>38 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>6C / 12T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM5</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 7 5700X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>3.4 / 4.6 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>36 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>8C / 16T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM4</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 7 7700X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>4.5 / 5.4 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>40 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>8C / 16T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM5</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 7 7800X3D</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>4.2 / 5.0 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>104 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>8C / 16T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM5</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 9 7900X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>4.7 / 5.6 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>76 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>12C / 24T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM5</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 9 7950X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>4.5 / 5.7 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>80 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>16C / 32T</strong></div>
+            <div class="proc-spec"><span>Socket</span><strong>AM5</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>Ryzen 9 9950X</h4>
+            <div class="proc-spec"><span>Base / Boost</span><strong>4.3 / 5.7 GHz</strong></div>
+            <div class="proc-spec"><span>Caché</span><strong>80 MB</strong></div>
+            <div class="proc-spec"><span>Núcleos</span><strong>16C / 32T</strong></div>
+            <div class="proc-spec"><span>Litografía</span><strong>4 nm</strong></div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se investigaron y compararon 20 procesadores modernos de Intel y AMD, analizando frecuencias, caché, núcleos e hilos. Se observa cómo las arquitecturas híbridas (P-core + E-core en Intel) y los diseños 3D V-Cache (AMD) representan las tendencias actuales del mercado.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- T2: GAMAS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">T2</div>
+        <div class="card-header-text">
+          <h3>Gamas de Equipo de Cómputo</h3>
+          <p>Clasificación por rendimiento, capacidad y tipo de uso</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Las gamas clasifican las computadoras según su rendimiento y capacidad. Se dividen en gama baja, media y alta.</p>
+        <div class="gama-grid">
+          <div class="gama-card">
+            <div class="gama-card-head baja"><h4>Gama Baja</h4><p>Económica y funcional</p></div>
+            <div class="gama-card-body">
+              <div class="gama-item"><span class="gama-label">CPU</span><span>i3, Ryzen 3, Celeron</span></div>
+              <div class="gama-item"><span class="gama-label">RAM</span><span>4 – 8 GB</span></div>
+              <div class="gama-item"><span class="gama-label">Gráficos</span><span>Integrados</span></div>
+              <div class="gama-item"><span class="gama-label">Uso</span><span>Oficina, escuela, doméstico</span></div>
+              <div class="gama-item"><span class="gama-label">Tareas</span><span>Office, navegación, multimedia</span></div>
+            </div>
+          </div>
+          <div class="gama-card">
+            <div class="gama-card-head media"><h4>Gama Media</h4><p>Equilibrada y versátil</p></div>
+            <div class="gama-card-body">
+              <div class="gama-item"><span class="gama-label">CPU</span><span>i5, Ryzen 5</span></div>
+              <div class="gama-item"><span class="gama-label">RAM</span><span>8 – 16 GB</span></div>
+              <div class="gama-item"><span class="gama-label">Gráficos</span><span>Dedicados entrada/integrados avanzados</span></div>
+              <div class="gama-item"><span class="gama-label">Uso</span><span>Empresas, universidades, programación</span></div>
+              <div class="gama-item"><span class="gama-label">Tareas</span><span>Diseño básico, edición ligera, gaming medio</span></div>
+            </div>
+          </div>
+          <div class="gama-card">
+            <div class="gama-card-head alta"><h4>Gama Alta</h4><p>Profesional y de alto rendimiento</p></div>
+            <div class="gama-card-body">
+              <div class="gama-item"><span class="gama-label">CPU</span><span>i7, i9, Ryzen 7, Ryzen 9</span></div>
+              <div class="gama-item"><span class="gama-label">RAM</span><span>16 – 64 GB+</span></div>
+              <div class="gama-item"><span class="gama-label">Gráficos</span><span>Dedicados alto rendimiento</span></div>
+              <div class="gama-item"><span class="gama-label">Uso</span><span>Centros de datos, IA, producción audiovisual</span></div>
+              <div class="gama-item"><span class="gama-label">Tareas</span><span>Renderizado 3D, simulaciones, gaming 4K</span></div>
+            </div>
+          </div>
+        </div>
+        <table class="data-table" style="margin-top:1.25rem">
+          <thead><tr><th>Característica</th><th>Gama Baja</th><th>Gama Media</th><th>Gama Alta</th></tr></thead>
+          <tbody>
+            <tr><td>Procesador</td><td>Básico</td><td>Intermedio</td><td>Avanzado</td></tr>
+            <tr><td>RAM</td><td>4–8 GB</td><td>8–16 GB</td><td>16–64 GB+</td></tr>
+            <tr><td>Gráficos</td><td>Integrados</td><td>Integrados avanzados o dedicados</td><td>Dedicados alto rendimiento</td></tr>
+            <tr><td>Uso principal</td><td>Oficina y escuela</td><td>Trabajo y multitarea</td><td>Profesional</td></tr>
+            <tr><td>Precio aprox.</td><td>Económico</td><td>Intermedio</td><td>Elevado</td></tr>
+          </tbody>
+        </table>
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Las gamas permiten elegir la computadora adecuada según las necesidades del usuario y su ambiente de uso. Gama baja para tareas sencillas, media para equilibrio costo-rendimiento, y alta para trabajo profesional exigente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- T3: DISEÑO DE EQUIPOS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">T3</div>
+        <div class="card-header-text">
+          <h3>Diseño de Equipos</h3>
+          <p>Configuraciones por gama · 6 builds completos</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Diseño de 6 equipos de cómputo (2 por gama) con especificaciones completas de cada componente.</p>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:.75rem 0 .75rem">Gama Baja</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem">
+          <div class="proc-card">
+            <h4>"Office Basic One"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>Intel Core i3-12100</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>ASUS PRIME H610M-E</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>8 GB DDR4 3200 MHz</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>256 GB SATA</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>500 W 80 Plus</strong></div>
+            <div class="proc-spec"><span>SO</span><strong>Windows 11 Home</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>"Home Work AMD"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>AMD Ryzen 3 4100</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>Gigabyte A520M</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>8 GB DDR4</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>512 GB NVMe</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>500 W</strong></div>
+            <div class="proc-spec"><span>SO</span><strong>Windows 11 Home</strong></div>
+          </div>
+        </div>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:.75rem 0 .75rem">Gama Media</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem">
+          <div class="proc-card">
+            <h4>"Developer Pro"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>Intel Core i5-13600K</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>MSI B760 Tomahawk WiFi</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>16 GB DDR5</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>1 TB NVMe</strong></div>
+            <div class="proc-spec"><span>GPU</span><strong>NVIDIA RTX 4060</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>650 W 80 Plus Bronze</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>"Ryzen Creator"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>AMD Ryzen 5 7600</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>ASUS TUF Gaming B650M</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>16 GB DDR5 5600 MHz</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>1 TB NVMe Gen4</strong></div>
+            <div class="proc-spec"><span>GPU</span><strong>AMD Radeon RX 7600</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>650 W 80 Plus Bronze</strong></div>
+          </div>
+        </div>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:.75rem 0 .75rem">Gama Alta</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="proc-card">
+            <h4>"Titan Xtreme Intel"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>Intel Core i9-13900K</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>ASUS ROG Maximus Z790</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>64 GB DDR5 6000 MHz</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>2 TB NVMe Gen4</strong></div>
+            <div class="proc-spec"><span>GPU</span><strong>NVIDIA RTX 4090</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>1000 W 80 Plus Gold</strong></div>
+          </div>
+          <div class="proc-card">
+            <h4>"Ryzen Beast Studio"</h4>
+            <div class="proc-spec"><span>CPU</span><strong>AMD Ryzen 9 7950X</strong></div>
+            <div class="proc-spec"><span>Motherboard</span><strong>MSI MPG X670E Carbon</strong></div>
+            <div class="proc-spec"><span>RAM</span><strong>64 GB DDR5</strong></div>
+            <div class="proc-spec"><span>SSD</span><strong>4 TB NVMe</strong></div>
+            <div class="proc-spec"><span>GPU</span><strong>Radeon RX 7900 XTX</strong></div>
+            <div class="proc-spec"><span>Fuente</span><strong>1000 W 80 Plus Gold</strong></div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se diseñaron 6 equipos completos cubriendo las tres gamas del mercado. Cada configuración está optimizada para su segmento: desde uso básico de oficina hasta producción profesional y gaming extremo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- T4: COTIZACIONES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-num">T4</div>
+        <div class="card-header-text">
+          <h3>Cotizaciones de Equipos</h3>
+          <p>Precios en línea vs. proveedores locales Saltillo (MXN)</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="inline-note">Comparativa de precios entre tiendas en línea y proveedores locales de Saltillo para cada build diseñado.</p>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:.75rem 0 .5rem">"Office Basic One" — Gama Baja</h4>
+        <table class="data-table">
+          <thead><tr><th>Componente</th><th>Modelo</th><th>Precio en línea</th><th>Proveedor</th><th>Precio local</th><th>Local Saltillo</th></tr></thead>
+          <tbody>
+            <tr><td>CPU</td><td>i3-12100</td><td>$2,300</td><td>CyberPuerta</td><td>$2,500</td><td>La Casa de las Computadoras</td></tr>
+            <tr><td>Motherboard</td><td>ASUS H610M-E</td><td>$1,800</td><td>DDTech</td><td>$2,000</td><td>Pc maker Saltillo</td></tr>
+            <tr><td>RAM</td><td>8 GB DDR4</td><td>$700</td><td>Amazon MX</td><td>$850</td><td>Office Depot</td></tr>
+            <tr><td>SSD</td><td>256 GB SATA</td><td>$500</td><td>CyberPuerta</td><td>$650</td><td>CompuRemate</td></tr>
+            <tr><td>Fuente</td><td>500 W 80+</td><td>$900</td><td>Zegucom</td><td>$1,050</td><td>CompuRemate</td></tr>
+            <tr><td>Gabinete</td><td>Mini Tower</td><td>$700</td><td>Mercado Libre</td><td>$900</td><td>Compucentro</td></tr>
+            <tr><td>SO</td><td>Windows 11</td><td>$2,500</td><td>Microsoft</td><td>$2,700</td><td>Pc Virtual</td></tr>
+            <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$9,400</strong></td><td></td><td><strong>$10,650</strong></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:1.25rem 0 .5rem">"Home Work AMD" — Gama Baja</h4>
+        <table class="data-table">
+          <thead><tr><th>Componente</th><th>Modelo</th><th>Precio en línea</th><th>Proveedor</th><th>Precio local</th><th>Local Saltillo</th></tr></thead>
+          <tbody>
+            <tr><td>CPU</td><td>Ryzen 3 4100</td><td>$1,700</td><td>CyberPuerta</td><td>$1,950</td><td>La Casa de las Computadoras</td></tr>
+            <tr><td>Motherboard</td><td>Gigabyte A520M</td><td>$1,600</td><td>DDTech</td><td>$1,850</td><td>Pc maker Saltillo</td></tr>
+            <tr><td>RAM</td><td>8 GB DDR4</td><td>$700</td><td>Amazon MX</td><td>$850</td><td>Office Depot</td></tr>
+            <tr><td>SSD</td><td>512 GB NVMe</td><td>$900</td><td>CyberPuerta</td><td>$1,100</td><td>CompuRemate</td></tr>
+            <tr><td>Fuente</td><td>500 W</td><td>$850</td><td>Zegucom</td><td>$1,000</td><td>CompuRemate</td></tr>
+            <tr><td>Gabinete</td><td>Micro ATX</td><td>$750</td><td>Mercado Libre</td><td>$950</td><td>Compucentro</td></tr>
+            <tr><td>SO</td><td>Windows 11</td><td>$2,500</td><td>Microsoft</td><td>$2,700</td><td>Pc Virtual</td></tr>
+            <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$9,000</strong></td><td></td><td><strong>$10,400</strong></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:1.25rem 0 .5rem">"Developer Pro" — Gama Media</h4>
+        <table class="data-table">
+          <thead><tr><th>Componente</th><th>Modelo</th><th>Precio en línea</th><th>Proveedor</th><th>Precio local</th><th>Local Saltillo</th></tr></thead>
+          <tbody>
+            <tr><td>CPU</td><td>i5-13600K</td><td>$6,500</td><td>CyberPuerta</td><td>$6,900</td><td>CompuRemate</td></tr>
+            <tr><td>Motherboard</td><td>MSI B760 Tomahawk WiFi</td><td>$4,200</td><td>DDTech</td><td>$4,700</td><td>Pc maker Saltillo</td></tr>
+            <tr><td>RAM</td><td>16 GB DDR5</td><td>$1,800</td><td>Amazon MX</td><td>$2,100</td><td>Office Depot Saltillo</td></tr>
+            <tr><td>SSD</td><td>1 TB NVMe</td><td>$1,600</td><td>CyberPuerta</td><td>$1,900</td><td>compuremate Saltillo</td></tr>
+            <tr><td>GPU</td><td>NVIDIA RTX 4060</td><td>$7,500</td><td>DDTech</td><td>$8,300</td><td>La Casa de las Computadoras</td></tr>
+            <tr><td>Fuente</td><td>650 W 80 Plus Bronze</td><td>$1,500</td><td>Zegucom</td><td>$1,750</td><td>HC Computadoras</td></tr>
+            <tr><td>Refrigeración</td><td>Cooler Master Hyper 212</td><td>$900</td><td>Amazon MX</td><td>$1,100</td><td>Megafix</td></tr>
+            <tr><td>Gabinete</td><td>Mid Tower RGB</td><td>$1,600</td><td>Mercado Libre</td><td>$1,900</td><td>Compucentro de Saltillo</td></tr>
+            <tr><td>SO</td><td>Windows 11 Home</td><td>$2,500</td><td>Microsoft Store</td><td>$2,700</td><td>Pc Virtual Saltillo</td></tr>
+            <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$28,100</strong></td><td></td><td><strong>$31,350</strong></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:1.25rem 0 .5rem">"Ryzen Creator" — Gama Media</h4>
+        <table class="data-table">
+          <thead><tr><th>Componente</th><th>Modelo</th><th>Precio en línea</th><th>Proveedor</th><th>Precio local</th><th>Local Saltillo</th></tr></thead>
+          <tbody>
+            <tr><td>CPU</td><td>AMD Ryzen 5 7600</td><td>$4,800</td><td>CyberPuerta</td><td>$5,200</td><td>CompuRemate</td></tr>
+            <tr><td>Motherboard</td><td>ASUS TUF Gaming B650M</td><td>$3,800</td><td>DDTech</td><td>$4,300</td><td>Pc maker Saltillo</td></tr>
+            <tr><td>RAM</td><td>16 GB DDR5 5600 MHz</td><td>$2,000</td><td>Amazon MX</td><td>$2,300</td><td>Office Depot Saltillo</td></tr>
+            <tr><td>SSD</td><td>1 TB NVMe Gen4</td><td>$1,700</td><td>CyberPuerta</td><td>$2,000</td><td>compuremate Saltillo</td></tr>
+            <tr><td>GPU</td><td>Radeon RX 7600</td><td>$6,800</td><td>DDTech</td><td>$7,500</td><td>La Casa de las Computadoras</td></tr>
+            <tr><td>Fuente</td><td>650 W 80 Plus Bronze</td><td>$1,500</td><td>Zegucom</td><td>$1,750</td><td>HC Computadoras</td></tr>
+            <tr><td>Refrigeración</td><td>DeepCool AG400</td><td>$800</td><td>Amazon MX</td><td>$1,000</td><td>Megafix</td></tr>
+            <tr><td>Gabinete</td><td>Gamer RGB Mid Tower</td><td>$1,700</td><td>Mercado Libre</td><td>$2,000</td><td>Compucentro de Saltillo</td></tr>
+            <tr><td>SO</td><td>Windows 11 Home</td><td>$2,500</td><td>Microsoft Store</td><td>$2,700</td><td>Pc Virtual Saltillo</td></tr>
+            <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$25,600</strong></td><td></td><td><strong>$28,750</strong></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--g);margin:1.25rem 0 .5rem">"Titan Xtreme Intel" — Gama Alta</h4>
+        <table class="data-table">
+          <thead><tr><th>Componente</th><th>Modelo</th><th>Precio en línea</th><th>Proveedor</th><th>Precio local</th><th>Local Saltillo</th></tr></thead>
+          <tbody>
+            <tr><td>CPU</td><td>i9-13900K</td><td>$11,500</td><td>CyberPuerta</td><td>$12,200</td><td>CompuRemate</td></tr>
+            <tr><td>Motherboard</td><td>ASUS ROG Maximus Z790</td><td>$11,000</td><td>DDTech</td><td>$12,000</td><td>Pc maker Saltillo</td></tr>
+            <tr><td>RAM</td><td>64 GB DDR5 6000 MHz</td><td>$5,500</td><td>Amazon MX</td><td>$6,000</td><td>Office Depot Saltillo</td></tr>
+            <tr><td>SSD</td><td>2 TB NVMe Gen4</td><td>$3,500</td><td>CyberPuerta</td><td>$4,000</td><td>compuremate Saltillo</td></tr>
+            <tr><td>GPU</td><td>NVIDIA RTX 4090</td><td>$42,000</td><td>DDTech</td><td>$45,000</td><td>La Casa de las Computadoras</td></tr>
+            <tr><td>Fuente</td><td>1000 W 80 Plus Gold</td><td>$3,500</td><td>Zegucom</td><td>$4,000</td><td>HC Computadoras</td></tr>
+            <tr><td>Refrig. líquida</td><td>AIO 360 mm</td><td>$3,000</td><td>Amazon MX</td><td>$3,500</td><td>Megafix</td></tr>
+            <tr><td>Gabinete</td><td>Full Tower Premium</td><td>$4,000</td><td>Mercado Libre</td><td>$4,500</td><td>Compucentro de Saltillo</td></tr>
+            <tr><td>SO</td><td>Windows 11 Pro</td><td>$3,500</td><td>Microsoft Store</td><td>$3,800</td><td>Pc Virtual Saltillo</td></tr>
+            <tr><td><strong>TOTAL</strong></td><td></td><td><strong>$87,500</strong></td><td></td><td><strong>$95,000</strong></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <div class="summary">
+          <p class="summary-title">Resumen</p>
+          <p>Se cotizaron los 6 equipos diseñados comparando precios en línea (CyberPuerta, DDTech, Amazon MX, Zegucom) vs. proveedores locales de Saltillo. En todos los casos, comprar en línea resulta entre un 10–15% más económico. Los precios van desde ~$9,000 MXN (gama baja) hasta ~$87,500 MXN (gama alta).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ESTUDIANTE -->
+<section id="nosotros" class="about-section">
+  <div class="container">
+    <p class="section-label">Sobre el autor</p>
+    <h2 class="section-title">Estudiante</h2>
+    <div class="divider" style="background:rgba(255,255,255,.25)"></div>
+    <div class="student-card">
+      <div class="student-avatar">A</div>
+      <div class="student-info">
+        <h3>Aldo Alejandro Soto Velez</h3>
+        <p>Ingeniería en Sistemas Computacionales<br>Instituto Tecnológico de Saltillo · Semestre 2025</p>
+      </div>
+    </div>
+    <div class="inst-card">
+      <p>Institución</p>
+      <p class="inst-name">Instituto Tecnológico de Saltillo</p>
+      <p class="inst-sub">Tecnológico Nacional de México · Saltillo, Coahuila de Zaragoza</p>
+      <div class="social-links" style="margin-top:.9rem">
+        <a class="social-link" href="https://saltillo.tecnm.mx/" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Sitio Web
+        </a>
+        <a class="social-link" href="https://www.facebook.com/share/14cqdHz2W5w/" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 · Aldo Alejandro Soto Velez · Instituto Tecnológico de Saltillo</p>
+  <p style="margin-top:.4rem">Arquitectura de Computadoras · Portafolio de Evidencias</p>
+</footer>
+
+<script>
+function toggle(header){
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.uni-toggle');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+</script>
+</body>
+</html>
