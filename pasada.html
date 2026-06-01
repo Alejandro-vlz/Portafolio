@@ -67,20 +67,10 @@ section{padding:5rem 2rem}
 .uni-body{padding:1.25rem 1.5rem;display:none}
 .uni-body.open{display:block}
 .tema-list{list-style:none;font-size:.9rem}
-.tema-list li{padding:.3rem 0;border-bottom:1px solid #f0f0f0;color:#444;line-height:1.5}
+.tema-list li{padding:.25rem 0;border-bottom:1px solid #f0f0f0;color:#444;line-height:1.5}
 .tema-list li:last-child{border-bottom:none}
 .tema-list li.sub1{padding-left:1rem;color:#555}
 .tema-list li.sub2{padding-left:2rem;color:#666;font-size:.85rem}
-.tema-list li.topic{cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
-.tema-list li.topic:hover .topic-title{color:var(--g)}
-.topic-title{flex:1}
-.topic-arrow{font-size:.7rem;color:var(--g);margin-top:.2rem;transition:transform .2s;flex-shrink:0}
-.topic-arrow.open{transform:rotate(180deg)}
-.topic-info{display:none;padding:.65rem .85rem;background:var(--gp);border-left:3px solid var(--g);border-radius:0 3px 3px 0;margin:.3rem 0 .5rem 0;font-size:.83rem;line-height:1.65;color:#444}
-.topic-info.open{display:block}
-.topic-info ul{margin:.3rem 0 0 1rem;padding:0}
-.topic-info ul li{border-bottom:none;padding:.1rem 0;font-size:.8rem;color:#555;list-style:disc}
-.topic-info strong{color:var(--g)}
 
 /* CARD BASE */
 .card{background:var(--w);border:1px solid #e5e5e5;border-left:4px solid var(--g);
@@ -217,102 +207,31 @@ p{line-height:1.7;font-size:.93rem;margin-bottom:.65rem;color:#444}
         </div>
         <div class="uni-body">
           <ul class="tema-list">
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.1 Modelos de arquitecturas de cómputo</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Una <strong>arquitectura de computadora</strong> es el conjunto de reglas y principios que define cómo están organizados y funcionan los componentes de hardware y software. Determina cómo se comunican los componentes, cómo se ejecutan instrucciones y cómo se almacenan los datos, influyendo directamente en el rendimiento y capacidad de expansión del sistema.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.1.1 Clásicas — Arquitectura Von Neumann</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>Arquitectura Von Neumann</strong> utiliza una memoria compartida para almacenar tanto datos como instrucciones. La CPU accede a ambos mediante un mismo bus, siendo la base de la mayoría de las computadoras actuales. Su principal limitación es el <em>cuello de botella de Von Neumann</em>: datos e instrucciones comparten el mismo canal de comunicación, lo que puede ralentizar el procesamiento.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.1.2 Segmentadas — Pipeline</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>Arquitectura Segmentada o Pipeline</strong> divide el procesamiento de instrucciones en etapas para ejecutar varias simultáneamente, aumentando el rendimiento del procesador. Funciona como una línea de ensamblaje: mientras una instrucción se decodifica, otra se busca y otra se ejecuta, aprovechando al máximo los recursos. También existe la <strong>Arquitectura Harvard</strong>, con memorias separadas para datos e instrucciones, muy utilizada en microcontroladores y sistemas embebidos por su eficiencia.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.1.3 De multiprocesamiento</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>multiprocesamiento</strong> utiliza más de un procesador para ejecutar programas cuando se requiere mayor rendimiento. Según la <strong>Clasificación de Flynn</strong>:<ul><li><strong>SISD:</strong> una instrucción, un dato — arquitectura secuencial clásica.</li><li><strong>SIMD:</strong> una instrucción, múltiples datos — videojuegos e IA.</li><li><strong>MISD:</strong> múltiples instrucciones, un dato — sistemas críticos.</li><li><strong>MIMD:</strong> múltiples instrucciones, múltiples datos — base de los procesadores multinúcleo actuales.</li></ul></div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2 Análisis de los componentes</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los componentes se dividen en <strong>internos</strong> (CPU, motherboard, RAM, disco duro/SSD, tarjeta de red, ventiladores) y <strong>externos o periféricos</strong> (monitor, teclado, mouse, impresora, escáner, bocinas, webcam, dispositivos de almacenamiento externos). Cada uno cumple una función específica dentro del sistema.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.1 CPU — Unidad Central de Procesamiento</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>CPU</strong> es el cerebro de la computadora. Ejecuta programas, procesa datos y coordina todos los componentes del sistema. Su rendimiento influye directamente en la velocidad y capacidad de respuesta del equipo. Se compone de la Unidad de Control, la ALU, registros y caché.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.1.1 Arquitecturas: RISC y CISC</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>RISC</strong> (Reduced Instruction Set Computer): instrucciones simples optimizadas, muy eficiente energéticamente, facilita pipelines. Usado en teléfonos y servidores ARM.<br><br><strong>CISC</strong> (Complex Instruction Set Computer): instrucciones complejas que agrupan varias operaciones. Facilita la programación pero requiere más recursos. Es la arquitectura de los procesadores x86 de PCs.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.1.2 Tipos de procesadores</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los procesadores se clasifican por uso: <strong>propósito general</strong> (PCs/laptops), <strong>propósito específico</strong> (DSP para señales, GPU para gráficos), <strong>microcontroladores</strong> (sistemas embebidos) y <strong>procesadores de servidor</strong> (Xeon, EPYC). También se distinguen por arquitectura de bits: 32 bits (capacidad máxima de RAM 4 GB) y 64 bits (capacidad de memoria prácticamente ilimitada).</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.1.3 Características del procesador</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Las características clave son: <strong>Frecuencia</strong> (GHz — velocidad del reloj), <strong>Núcleos / Cores</strong> (unidades de procesamiento independientes), <strong>Hilos / Threads</strong> (procesos paralelos por núcleo), <strong>Arquitectura</strong> (32 o 64 bits), <strong>Caché L1/L2/L3</strong>, <strong>TDP</strong> (consumo térmico en watts) y <strong>litografía</strong> (tamaño del proceso en nm). Todos determinan el rendimiento y eficiencia energética.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.1.4 Funcionamiento: ALU, UC, Registros y Buses internos</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La CPU se compone de:<ul><li><strong>ALU</strong>: realiza operaciones matemáticas (sumas, restas) y lógicas (comparaciones, booleanas). Esencial para la ejecución de cálculos y toma de decisiones.</li><li><strong>Unidad de Control (UC)</strong>: interpreta instrucciones y coordina el flujo de datos entre componentes del procesador.</li><li><strong>Registros</strong>: memorias internas ultrarrápidas para almacenar datos temporales e instrucciones en proceso.</li><li><strong>Buses internos</strong>: vías de comunicación que conectan CPU, memoria y periféricos (datos, direcciones y control).</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.2 Memoria</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El sistema de memoria se organiza jerárquicamente por velocidad y costo: <strong>Registros</strong> (dentro de la CPU, ultrarrápidos) → <strong>Caché L1/L2/L3</strong> → <strong>RAM</strong> (memoria principal) → <strong>Almacenamiento secundario</strong> (HDD/SSD). A mayor velocidad, menor capacidad y mayor costo por byte.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.2.1 Conceptos básicos del manejo de la memoria</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La memoria se clasifica en <strong>volátil</strong> (pierde su contenido al apagar el sistema, como la RAM) y <strong>no volátil</strong> (conserva los datos sin energía, como ROM, SSD). La gestión de memoria implica asignar, liberar y organizar el espacio disponible para que los programas puedan acceder a sus datos de forma eficiente.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.2.2 Memoria principal semiconductora (RAM / ROM)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>RAM</strong> (Random Access Memory): memoria temporal y volátil donde se almacenan datos y programas en uso. Permite acceso aleatorio y rápido a la información requerida por la CPU. Se considera volátil porque pierde su contenido al apagar el sistema.<br><br><strong>ROM</strong> (Read Only Memory): memoria permanente y no volátil que almacena el firmware e instrucciones necesarias para el arranque del sistema (BIOS/UEFI). Conserva la información incluso sin energía eléctrica.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.2.3 Memoria caché</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>memoria caché</strong> es ultrarrápida y se ubica entre la CPU y la RAM. Guarda datos e instrucciones de uso frecuente para acelerar el procesamiento. Se divide en niveles:<ul><li><strong>L1</strong>: más rápida y pequeña, integrada directamente en cada núcleo.</li><li><strong>L2</strong>: mayor capacidad que L1, un poco más lenta.</li><li><strong>L3</strong>: compartida entre todos los núcleos, mayor capacidad pero más lenta que L1 y L2.</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.3 Manejo de la Entrada/Salida</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los <strong>módulos de E/S</strong> gestionan la comunicación entre la CPU/memoria y los dispositivos periféricos. Los dispositivos de <strong>entrada</strong> (teclado, mouse, escáner, micrófono) permiten ingresar datos. Los de <strong>salida</strong> (monitor, impresora, bocinas) presentan resultados. La gestión se puede realizar por polling, interrupciones o DMA.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.3.3 E/S mediante interrupciones</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">En la <strong>E/S por interrupciones</strong>, el dispositivo envía una señal (IRQ) a la CPU cuando requiere atención. La CPU puede realizar otras tareas mientras tanto y solo atiende el dispositivo cuando recibe la señal. Es más eficiente que el polling porque no requiere revisiones constantes, liberando recursos del procesador para otros procesos.</div>
-
-            <li class="sub2 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.3.4 Acceso Directo a Memoria (DMA)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>DMA</strong> (Direct Memory Access) permite transferir datos entre dispositivos y la RAM sin intervención constante de la CPU, mejorando notablemente el rendimiento del sistema. Se utiliza frecuentemente en discos duros, SSD y tarjetas de red para transferencias masivas de datos, reduciendo la carga del procesador.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.4 Buses</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Un <strong>bus</strong> es una vía electrónica que transfiere información entre los componentes de una computadora. Tipos principales:<ul><li><strong>Bus de datos</strong>: transporta información en ambas direcciones.</li><li><strong>Bus de direcciones</strong>: indica la dirección de memoria para leer/escribir.</li><li><strong>Bus de control</strong>: coordina las operaciones del sistema.</li><li><strong>Bus de sistema</strong>: conecta CPU con memoria principal.</li><li><strong>Bus local</strong>: dispositivos internos de alta velocidad.</li><li><strong>Bus periférico</strong>: conecta dispositivos externos (USB, PCIe).</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">1.2.5 Interrupciones</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Una <strong>interrupción</strong> es un mecanismo que altera temporalmente la ejecución normal de un programa para atender un evento externo de hardware o software. Existen dos enfoques:<ul><li><strong>Polling (Poleo)</strong>: la CPU revisa constantemente el estado del dispositivo. Simple pero ineficiente en uso de recursos.</li><li><strong>Interrupciones (IRQ)</strong>: el dispositivo avisa a la CPU mediante señal cuando requiere atención. Permite a la CPU realizar otras tareas mientras tanto, siendo mucho más eficiente.</li></ul></div>
-
+            <li>1.1 Modelos de arquitecturas de cómputo</li>
+            <li class="sub1">1.1.1 Clásicas</li>
+            <li class="sub1">1.1.2 Segmentadas</li>
+            <li class="sub1">1.1.3 De multiprocesamiento</li>
+            <li>1.2 Análisis de los componentes</li>
+            <li class="sub1">1.2.1 CPU</li>
+            <li class="sub2">1.2.1.1 Arquitecturas</li>
+            <li class="sub2">1.2.1.2 Tipos</li>
+            <li class="sub2">1.2.1.3 Características</li>
+            <li class="sub2">1.2.1.4 Funcionamiento (ALU, Unidad de control, Registros y buses internos)</li>
+            <li class="sub1">1.2.2 Memoria</li>
+            <li class="sub2">1.2.2.1 Conceptos básicos del manejo de la memoria</li>
+            <li class="sub2">1.2.2.2 Memoria principal semiconductora</li>
+            <li class="sub2">1.2.2.3 Memoria caché</li>
+            <li class="sub1">1.2.3 Manejo de la entrada/salida</li>
+            <li class="sub2">1.2.3.1 Módulos de entrada/salida</li>
+            <li class="sub2">1.2.3.2 Entrada/salida programada</li>
+            <li class="sub2">1.2.3.3 Entrada/salida mediante interrupciones</li>
+            <li class="sub2">1.2.3.4 Acceso directo a memoria</li>
+            <li class="sub2">1.2.3.5 Canales y procesadores de entrada/salida</li>
+            <li class="sub1">1.2.4 Buses</li>
+            <li class="sub2">1.2.4.1 Tipos de buses</li>
+            <li class="sub2">1.2.4.2 Estructura de los buses</li>
+            <li class="sub2">1.2.4.3 Jerarquías de buses</li>
+            <li class="sub1">1.2.5 Interrupciones</li>
           </ul>
         </div>
       </div>
@@ -325,57 +244,16 @@ p{line-height:1.7;font-size:.93rem;margin-bottom:.65rem;color:#444}
         </div>
         <div class="uni-body">
           <ul class="tema-list">
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.1 Organización del procesador</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>CPU</strong> es el núcleo del sistema informático. Se encarga de interpretar y ejecutar instrucciones, coordinando todas las operaciones de la computadora. Está compuesta por registros, Unidad de Control, ALU y mecanismos de segmentación (pipeline). El rendimiento general del sistema depende en gran medida de su diseño interno.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.2 Estructura de registros</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los <strong>registros</strong> son pequeñas memorias de alta velocidad ubicadas dentro del procesador. Almacenan temporalmente datos e instrucciones para evitar accesos constantes a la memoria principal y mejorar el rendimiento. Son las memorias más rápidas del sistema pero con menor capacidad.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.2.1 Registros visibles para el usuario</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Son los registros que el programador puede manipular directamente:<ul><li><strong>Registros de Datos</strong>: guardan información utilizada en operaciones aritméticas y lógicas.</li><li><strong>Registros de Direcciones</strong>: almacenan direcciones de memoria para acceder rápidamente a datos y programas.</li><li><strong>Registros de Índice</strong>: facilitan el direccionamiento indirecto y relativo, especialmente en arreglos y estructuras de datos.</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.2.2 Registros de control y de estado</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Registros gestionados por el sistema para controlar la ejecución:<ul><li><strong>Contador de Programa (PC)</strong>: contiene la dirección de la siguiente instrucción a ejecutar.</li><li><strong>Registro de Instrucción (IR)</strong>: almacena la instrucción actual siendo procesada.</li><li><strong>Registro de Dirección de Memoria (MAR)</strong>: guarda la dirección donde se leerá o escribirá.</li><li><strong>Registro Intermedio de Memoria (MBR)</strong>: almacena temporalmente los datos que entran o salen de memoria.</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.2.3 Ejemplos de organización de registros en CPU reales</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">En la arquitectura <strong>x86/x64</strong> (Intel/AMD) los registros de propósito general son RAX, RBX, RCX, RDX (64 bits), con versiones de 32 bits (EAX, EBX...), 16 bits (AX, BX...) y 8 bits (AL, AH...). Además existen registros de segmento (CS, DS, SS) y de propósito especial como RSP (puntero de pila) y RIP (contador de programa).</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.3 El ciclo de instrucción</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>ciclo de instrucción</strong> (FDE) es el proceso que sigue la CPU para ejecutar cada instrucción. Está compuesto por tres fases principales: Fetch (búsqueda), Decode (decodificación) y Execute (ejecución). Este ciclo se repite millones de veces por segundo durante la ejecución de los programas.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.3.1 Ciclo Fetch-Decode-Execute (FDE)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><ul><li><strong>Fetch (Búsqueda)</strong>: la CPU obtiene la instrucción desde la memoria utilizando la dirección almacenada en el PC, luego la carga en el Registro de Instrucción (IR).</li><li><strong>Decode (Decodificación)</strong>: la Unidad de Control interpreta la instrucción, identifica el código de operación y determina qué recursos utilizará.</li><li><strong>Execute (Ejecución)</strong>: se realiza la operación indicada: cálculos matemáticos, operaciones lógicas, acceso a memoria o saltos de programa.</li></ul></div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.3.2 Segmentación de instrucciones (Pipeline)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>segmentación o pipeline</strong> es una técnica para ejecutar varias instrucciones simultáneamente en diferentes etapas. Incrementa significativamente el rendimiento de la CPU al mantener ocupadas sus unidades de procesamiento. Funciona como una línea de ensamblaje industrial: distintas instrucciones avanzan en paralelo por las etapas Fetch → Decode → Execute.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.3.3 Conjunto de instrucciones: características y funciones</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>ISA</strong> (Instruction Set Architecture) es el conjunto completo de instrucciones que un procesador puede ejecutar. Incluye instrucciones aritméticas, lógicas, de transferencia de datos, de control de flujo (saltos, llamadas) y de E/S. Define la interfaz entre el software y el hardware, siendo la base del lenguaje ensamblador.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">2.3.4 Modos de direccionamiento y formatos</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los <strong>modos de direccionamiento</strong> son los métodos para localizar operandos y datos en memoria:<ul><li><strong>Por Registro</strong>: el dato está en un registro interno. Es el más rápido. Ej: <code>MOV AX, CX</code></li><li><strong>Indirecto</strong>: la dirección de memoria está en un registro. Ej: <code>MOV AX, [BX]</code></li><li><strong>Indexado</strong>: usa un registro índice para acceder a elementos de arreglos o tablas.</li><li><strong>Base + Índice</strong>: combina un registro base y uno índice para acceder a estructuras complejas.</li></ul></div>
-
+            <li>2.1 Organización del procesador</li>
+            <li>2.2 Estructura de registros</li>
+            <li class="sub1">2.2.1 Registros visibles para el usuario</li>
+            <li class="sub1">2.2.2 Registros de control y de estados</li>
+            <li class="sub1">2.2.3 Ejemplos de organización de registros de CPU reales</li>
+            <li>2.3 El ciclo de instrucción</li>
+            <li class="sub1">2.3.1 Ciclo Fetch-Decode-Execute</li>
+            <li class="sub1">2.3.2 Segmentación de instrucciones</li>
+            <li class="sub1">2.3.3 Conjunto de instrucciones: características y funciones</li>
+            <li class="sub1">2.3.4 Modos de direccionamiento y formatos</li>
           </ul>
         </div>
       </div>
@@ -388,52 +266,9 @@ p{line-height:1.7;font-size:.93rem;margin-bottom:.65rem;color:#444}
         </div>
         <div class="uni-body">
           <ul class="tema-list">
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1 Chip Set</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>Chipset</strong> es el conjunto de circuitos integrados de la tarjeta madre que coordina la comunicación entre CPU, memoria RAM, almacenamiento y periféricos. Determina gran parte de la compatibilidad y capacidades de expansión del sistema. En arquitecturas clásicas se dividía en <strong>Northbridge</strong> (CPU, RAM, GPU) y <strong>Southbridge</strong> (USB, discos, audio, red). En arquitecturas modernas, muchas funciones del Northbridge fueron integradas directamente en la CPU.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.1 CPU — Selección para ensamble</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Al seleccionar una CPU para ensamble se evalúan: <strong>Frecuencia (GHz)</strong>, <strong>Núcleos (Cores)</strong>, <strong>Hilos (Threads)</strong> y <strong>Arquitectura (32/64 bits)</strong>. Sus componentes internos clave son la Unidad de Control (CU), la ALU, los registros y la memoria caché. La compatibilidad con el socket de la tarjeta madre es fundamental.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.2 Controlación del Bus</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>bus</strong> es la vía de comunicación entre CPU, RAM y dispositivos de E/S. La controlación del bus evita conflictos cuando varios dispositivos intentan usarlo simultáneamente mediante protocolos de arbitraje. Los tres tipos fundamentales son: <strong>bus de datos</strong>, <strong>bus de direcciones</strong> y <strong>bus de control</strong>.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.3 Puertos de Entrada y Salida (E/S)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los puertos de E/S permiten la comunicación de la computadora con dispositivos externos. <strong>Dispositivos de entrada</strong>: teclado, mouse, escáner, micrófono. <strong>Dispositivos de salida</strong>: monitor, impresora, bocinas. Son la interfaz física que permite la interacción entre el usuario y la computadora, y su selección correcta es clave en el ensamble.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.4 Controlador de Interrupciones</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>controlador de interrupciones</strong> recibe solicitudes de dispositivos y las envía al procesador según su prioridad. Existen dos tipos: <strong>PIC</strong> (Programmable Interrupt Controller) — utilizado en sistemas antiguos con pocas interrupciones, y <strong>APIC</strong> (Advanced Programmable Interrupt Controller) — usado en sistemas modernos y multiprocesadores para gestionar múltiples interrupciones eficientemente.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.5 DMA (Acceso Directo a Memoria)</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">El <strong>DMA</strong> permite transferir datos entre dispositivos y la RAM sin la intervención constante de la CPU, mejorando notablemente el rendimiento del sistema. Se utiliza frecuentemente en discos duros, SSD y tarjetas de red para reducir la carga del procesador durante transferencias masivas de datos.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.1.6 Temporizadores</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los <strong>temporizadores</strong> son circuitos que generan señales periódicas para sincronizar procesos, controlar tiempos y generar interrupciones programadas. Son esenciales en la planificación del sistema operativo, medición del tiempo de ejecución de procesos y control de hardware en tiempo real.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.2 Aplicaciones — Tipos de almacenamiento</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Los dispositivos de almacenamiento se clasifican en:<ul><li><strong>HDD</strong>: mayor capacidad, menor velocidad, piezas mecánicas. Ideal para almacenamiento masivo económico.</li><li><strong>SSD</strong>: mayor velocidad y confiabilidad, sin piezas móviles, mayor costo por GB.</li><li><strong>USB / Externos</strong>: portátiles y fáciles de transportar para respaldo o transferencia de datos.</li></ul>Las <strong>fuentes de alimentación</strong> (ATX, modulares, no modulares) transforman corriente alterna en directa y distribuyen energía a todos los componentes.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">3.3 Ambientes de servicio</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Áreas donde las computadoras se utilizan para automatizar procesos y mejorar la productividad:<ul><li><strong>Negocios</strong>: administración, ventas, contabilidad y recursos humanos.</li><li><strong>Industria</strong>: manufactura, control de calidad, logística y robótica.</li><li><strong>Comercio Electrónico</strong>: tiendas en línea, pagos electrónicos, marketing digital y atención al cliente.</li></ul>Cada ambiente requiere configuraciones de hardware específicas según las necesidades de procesamiento, disponibilidad y seguridad.</div>
-
+            <li>3.1 Chip Set</li>
+            <li>3.2 Aplicaciones</li>
+            <li>3.3 Ambientes de servicio</li>
           </ul>
         </div>
       </div>
@@ -446,57 +281,9 @@ p{line-height:1.7;font-size:.93rem;margin-bottom:.65rem;color:#444}
         </div>
         <div class="uni-body">
           <ul class="tema-list">
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.1 Aspectos básicos de la computación paralela</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>computación paralela</strong> divide problemas grandes en tareas más pequeñas que se ejecutan simultáneamente. Su objetivo es reducir el tiempo de procesamiento y aprovechar mejor los recursos disponibles. Conceptos clave: paralelismo, división del problema, comunicación, sincronización, balance de carga, escalabilidad y <em>speedup</em> (aceleración).</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.1.1 Tipos de computación paralela</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><ul><li><strong>Paralelismo de Datos</strong>: la misma operación se aplica simultáneamente sobre múltiples datos.</li><li><strong>Paralelismo de Tareas</strong>: varias tareas diferentes se ejecutan al mismo tiempo.</li><li><strong>Paralelismo a Nivel de Bits</strong>: el procesador trabaja con varios bits en una sola operación.</li><li><strong>Paralelismo a Nivel de Instrucciones</strong>: la CPU ejecuta varias instrucciones simultáneamente mediante técnicas como pipeline.</li></ul></div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.2 Clasificación de Flynn</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">La <strong>taxonomía de Flynn</strong> clasifica las arquitecturas de computadoras según el número de flujos de instrucciones y datos que pueden procesarse simultáneamente. Es el estándar para clasificar arquitecturas paralelas y secuenciales.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.2.1 SISD — Single Instruction, Single Data</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>SISD</strong>: una instrucción opera sobre un único dato. Es la arquitectura secuencial tradicional basada en Von Neumann. Ejemplo: computadora personal clásica con un solo núcleo. No hay paralelismo real; las instrucciones se ejecutan de forma estrictamente secuencial.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.2.2 SIMD — Single Instruction, Multiple Data</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>SIMD</strong>: una sola instrucción opera sobre múltiples datos simultáneamente. Muy utilizada en procesamiento de videojuegos, imágenes e inteligencia artificial. Las GPU (tarjetas gráficas) son el ejemplo más claro, aplicando la misma operación a millones de píxeles al mismo tiempo.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.2.3 MISD — Multiple Instruction, Single Data</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>MISD</strong>: múltiples instrucciones operan sobre un mismo dato. Es la clasificación menos común en la práctica. Se utiliza principalmente en sistemas críticos de alta confiabilidad donde el mismo dato es procesado por varios procesadores para verificar resultados por redundancia.</div>
-
-            <li class="sub1 topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.2.4 MIMD — Multiple Instruction, Multiple Data</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info"><strong>MIMD</strong>: múltiples instrucciones operan sobre múltiples datos de forma independiente. Es la base de las computadoras multinúcleo actuales y los clústeres. Permite que distintos procesadores ejecuten tareas completamente diferentes al mismo tiempo, siendo la arquitectura más flexible y potente para computación de alto rendimiento.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.3 Arquitectura de computadoras secuenciales</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">Las arquitecturas secuenciales ejecutan una instrucción a la vez siguiendo el modelo de Von Neumann. Componentes: CPU, memoria principal, buses y unidad de control. <strong>Ventajas</strong>: diseño simple y fácil programación. <strong>Limitaciones</strong>: bajo rendimiento paralelo y cuellos de botella en memoria que limitan la velocidad máxima.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.5 Sistemas de Memoria Compartida</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">En los <strong>sistemas de memoria compartida</strong>, varios procesadores acceden a una misma memoria principal. Facilita la comunicación entre procesos pero puede generar conflictos de acceso (condiciones de carrera). Las <strong>redes de interconexión dinámica</strong> utilizan switches y conexiones dinámicas para comunicar procesadores y memorias según las necesidades del sistema.</div>
-
-            <li class="topic" onclick="toggleTopic(this)">
-              <span class="topic-title">4.6 Sistemas de Memoria Distribuida y Multicomputadoras</span><span class="topic-arrow">▾</span>
-            </li>
-            <div class="topic-info">En los <strong>sistemas de memoria distribuida</strong>, cada procesador posee su propia memoria y se comunica mediante intercambio de mensajes a través de una red. Es la arquitectura común en supercomputadoras y clústeres de alto rendimiento.<br><br>Las <strong>multicomputadoras</strong> son conjuntos de computadoras independientes que cooperan para resolver problemas complejos, generalmente mediante clústeres o redes de alto rendimiento como InfiniBand o Ethernet de alta velocidad.</div>
-
+            <li>Conceptos de procesamiento paralelo</li>
+            <li>Arquitecturas paralelas</li>
+            <li>Aplicaciones del procesamiento paralelo</li>
           </ul>
         </div>
       </div>
@@ -1139,13 +926,6 @@ function toggle(header){
   const body = header.nextElementSibling;
   const arrow = header.querySelector('.uni-toggle');
   body.classList.toggle('open');
-  arrow.classList.toggle('open');
-}
-function toggleTopic(li){
-  const info = li.nextElementSibling;
-  const arrow = li.querySelector('.topic-arrow');
-  if(!info || !info.classList.contains('topic-info')) return;
-  info.classList.toggle('open');
   arrow.classList.toggle('open');
 }
 </script>
